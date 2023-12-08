@@ -196,5 +196,5 @@ class BookmarkShortcut:
 
         extent_transformed = transform.transform(extent)
 
-        # zoom into the bookmark
         iface.mapCanvas().setExtent(extent_transformed)
+        iface.mapCanvas().refresh()
