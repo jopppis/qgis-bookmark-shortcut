@@ -10,7 +10,7 @@ version=0.1
 author=Ville Joensuu
 email=jopppis@gmail.com
 
-about=This plugin provides a simple shortcut from toolbar to Spatial Bookmarks saved by the user.
+about=This plugin provides a simple shortcut from toolbar to Spatial Bookmarks saved by the user. It is mainly meant for developers to quickly zoom into a location that has data useful for testing.
 
 tracker=https://github.com/jopppis/qgis-bookmark-shortcut/issues
 repository=https://github.com/jopppis/qgis-bookmark-shortcut
@@ -44,4 +44,3 @@ Category of the plugin: Raster, Vector, Database or Web
 
 # If the plugin can run on QGIS Server.
 server=False
-
