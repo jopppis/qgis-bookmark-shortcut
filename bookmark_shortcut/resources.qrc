@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/plugins/bookmark_shortcut" >
+        <file>icon.png</file>
+    </qresource>
+</RCC>
