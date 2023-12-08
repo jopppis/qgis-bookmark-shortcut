@@ -25,6 +25,9 @@ from qgis.PyQt.QtCore import QSettings, QTranslator, QCoreApplication
 from qgis.PyQt.QtGui import QIcon
 from qgis.PyQt.QtWidgets import QAction
 
+from qgis.core import QgsCoordinateTransform
+from qgis.utils import iface
+
 # Initialize Qt resources from file resources.py
 from .resources import *
 # Import the code for the dialog
@@ -182,19 +185,16 @@ class BookmarkShortcut:
 
     def run(self):
         """Run method that performs all the real work"""
+        bookmarks = QgsApplication.bookmarkManager().bookmarks()
+        if not bookmarks:
+            return
 
-        # Create the dialog with elements (after translation) and keep reference
-        # Only create GUI ONCE in callback, so that it will only load when the plugin is started
-        if self.first_start == True:
-            self.first_start = False
-            self.dlg = BookmarkShortcutDialog()
+        extent = bookmarks[0].extent()
 
-        # show the dialog
-        self.dlg.show()
-        # Run the dialog event loop
-        result = self.dlg.exec_()
-        # See if OK was pressed
-        if result:
-            # Do something useful here - delete the line containing pass and
-            # substitute with your code.
-            pass
+        canvas_crs = iface.mapCanvas().mapSettings().destinationCrs()
+        transform = QgsCoordinateTransform(extent.crs(), canvas_crs, QgsProject.instance())
+
+        extent_transformed = transform.transform(extent)
+
+        # zoom into the bookmark
+        iface.mapCanvas().setExtent(extent_transformed)
