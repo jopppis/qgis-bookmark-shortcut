@@ -189,7 +189,12 @@ class BookmarkShortcut:
         if not bookmarks:
             return
 
-        extent = bookmarks[0].extent()
+        toolbar_bookmarks = [bm for bm in bookmarks if bm.group() == 'Toolbar']
+
+        if toolbar_bookmarks:
+            extent = toolbar_bookmarks[0].extent()
+        else:
+            extent = bookmarks[0].extent()
 
         canvas_crs = iface.mapCanvas().mapSettings().destinationCrs()
         transform = QgsCoordinateTransform(extent.crs(), canvas_crs, QgsProject.instance())
